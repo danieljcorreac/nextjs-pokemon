@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { pokeApi } from '@/api';
 import { PokemonDetail } from '@/components';
 import { Pokemon, PokemonListResponse } from '@/interfaces';
+import { RedirectType } from 'next/dist/client/components/redirect';
+
+export const revalidate = 30;
 
 async function getAllData() {
     const { data }  = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
@@ -55,7 +58,7 @@ const PokemonPage = async ({ params }: any) => {
     const pokemon = await getData(slug);
 
     if (!pokemon) {
-        notFound();
+        redirect('/404', RedirectType.replace);
     }
     
     return (
