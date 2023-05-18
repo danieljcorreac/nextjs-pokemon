@@ -4,11 +4,14 @@ import { pokeApi } from '@/api';
 import { PokemonListResponse } from '@/interfaces';
 import { PokemonList } from '../components';
 
+const origin = (typeof window === 'undefined') ? '' : window.location.origin;
+
 export const metadata: Metadata = {
   title: 'Listado de Pokemons',
   openGraph: {
     title: 'Listado de Pokemons',
     description: 'Listado de los primeros 151 pokemons',
+    images: [`${origin}/img/banner.png`]
   }
 };
 
